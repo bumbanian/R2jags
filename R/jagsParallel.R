@@ -16,7 +16,7 @@ jags.parallel <- function (data, inits, parameters.to.save, model.file,
     }
   }else{
     res = foreach(i = 1:n.cluster) %dopar% {
-      jags(data = data, inits = inits[[i]], 
+      jags(data = data, inits = list(inits[[i]]), 
            parameters.to.save = parameters.to.save, 
            model.file = model.file, n.chains = 1, n.iter = n.iter, 
            n.burnin = n.burnin, n.thin = n.thin)
