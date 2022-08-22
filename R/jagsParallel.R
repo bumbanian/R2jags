@@ -2,7 +2,7 @@
 ###Includes fix for namespace bug proposed by user wlandu 
 ###Accessed 3/7/2021
 
-jags.parallel <- function (data, inits, parameters.to.save, model.file,
+jags.parallel <- function (data, inits = NULL, parameters.to.save, model.file,
                            n.chains , n.iter, n.burnin,
                            n.thin, n.cluster = n.chains)
 {
@@ -16,7 +16,7 @@ jags.parallel <- function (data, inits, parameters.to.save, model.file,
     }
   }else{
     res = foreach(i = 1:n.cluster) %dopar% {
-      jags(data = data, inits = list(inits[[i]]), 
+      jags(data = data, inits = inits[i], 
            parameters.to.save = parameters.to.save, 
            model.file = model.file, n.chains = 1, n.iter = n.iter, 
            n.burnin = n.burnin, n.thin = n.thin)
